@@ -1,0 +1,82 @@
+How to use the RNG Testing Lua Script:
+--------------------------------------------------
+1) Make sure that all of the files from
+the .zip file are in the same folder
+as the script.
+
+2) Open the version of the Lua script you want 
+to use - RNG_Script (Value/Index Version).lua.
+
+    Value Version - Allows you to input
+    specific RNG values to test.
+
+    Index Version - Allows you to input
+    specific RNG indices to test (indices
+    will be easier to work with for a
+    full-game run than values).
+
+3) Replace the following variable/values in that file:
+
+    filename - This should be the name of
+    the savestate for the star you're finding RNG for, 
+    including the extension (either .st or .savestate).
+
+    cur_rng_val/cur_rng_ind - Which one
+    you fill in will depend on the script
+    version you're using. This should be the
+    value or index that you want to start testing
+    with (you can find the current value or index
+    in STROOP's Misc tab). If you want to go through
+    all values, you can start at 0 (no matter which
+    version you're using).
+
+    last_rng_val/last_rng_ind - This should be the last
+    value or index that you want to test. Mupen will pause
+    after this one is tested. To bypass this and let the script 
+    run indefinitely, set it to -3 (no matter which version 
+    you're using).
+
+    "elseif (timer == 745) then" - This line is located
+    later down in the script. To find the number you
+    should replace 745 with, first find the frame number
+    that your savestate loads on, and then find a frame
+    number on which your "success" condition (star collected 
+    or coin count reached) should be met. If you're using an m64
+    that starts from a savestate already, then you can just use the
+    frame number from Mupen on the frame your condition is met.
+    If you're using an m64 that starts from reset, then subtract the 
+    frame number that your savestate loads on from the frame number 
+    on which your condition should be met. The result is what you 
+    should put into this line. For example, if the savestate loads on
+    frame 500, and a star is collected on frame 600, then we would do 
+    605 - 500. With the result being 105, we would now fill in the line 
+    to be "elseif (timer == 105) then". If we had an m64 that started from 
+    a savestate, and a star is collected on frame 500, then we would just 
+    fill in the line to be "elseif (timer == 105) then".
+
+4) Save your edits to the script file, and then open up Mupen
+if you haven't already. Load your m64 file (make sure
+to be in read-only mode), and then run the Lua script.
+The script will then start running, and will show the
+current value or index being tested in the top left corner.
+If a successful RNG value is found, it will be printed in the
+Lua console, along with its index. It will also be written to
+a text file that can be found in the same folder as the script.
+
+5) If you set an ending value or index, make sure to remember
+to stop running the script after it completes testing, otherwise 
+you'll be unable to unpause your Mupen.
+
+Tips:
+- Use a lightweight graphics plugin in Mupen (Jabo is good
+for this)
+- Use a non-visual input plugin instead of TASInput
+- Set the window resolution to be as small as possible
+- Hold down Tab while Mupen is selected, and then click
+away from the window to set it to always be on fast-forward
+- If your computer can handle it, consider opening up a few
+more Mupen instances, all running with different, exclusive 
+RNG ranges (so that you can avoid overlap between the values
+they're testing), and make sure these are all using the 
+fast-forward tip (for example, have one go from 0 to 500, 
+and another from 501 to 1000, etc.)
