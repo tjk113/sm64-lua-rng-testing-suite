@@ -1,0 +1,3 @@
+[submodule "SM64Lua"]
+	path = SM64Lua
+	url = https://github.com/tjk113/SM64Lua
